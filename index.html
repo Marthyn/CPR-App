@@ -3,19 +3,51 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Defacto Mobile App</title>
+	<title>BLS/ALS</title>
 	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400' rel='stylesheet' type='text/css'>
 	<script src="js/lib/jquery-1.8.2.min.js"></script>
 	<script src="js/lib/jquery-ui.js"></script>
 	<script src="js/lib/jquery.mobile-1.2.0.min.js"></script>
 	<script type='text/javascript' src='js/lib/knockout-2.2.1.js'></script>
+	<script src="speakClient.js"></script>
 	<script>
+	var url = "http://translate.google.com/translate_tts?tl=NL&q=";
+	var callService = function (uri) 
+	{
+	    $.ajax({
+	        cache: true,
+	        url: uri,
+	        type: "GET",
+	        contentType: "application/javascript",
+	        dataType: "json",
+	        error: ajaxError,
+	        failure: ajaxError,
+	        success: playMusic
+	        
+	    });      
+	};
+
+	var ajaxError = function(data) {
+		console.log(data);
+	}
+
+	var playMusic = function(data) {
+		console.log(data)	
+	}
+
 	var goBack = function() {
    		window.history.back();
 	}
 
 	var goForward = function() {
 	    window.history.forward();
+	}
+
+	var play =  function(element) {
+		var text = document.getElementById(element).innerHTML;	
+		console.log(text);
+		speak(text);
+
 	}
 	</script>
 	<!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />-->
@@ -52,34 +84,39 @@
 
 	<div data-role="page" id="cpr">
 		<h1 style="text-align:center">Reanimatie</h1>
+		<div id="audio"></div>
 		<ul data-role="listview" data-inset="true" class="stepList">
 			<li data-split-icon="star">
 				<img src="img/stap_1.gif" class="ui-li-thumb" />
 				<h1>Stap 1</h1>
-				<p>Controleer het bewustzijn door het slachtoffer voorzichtig aan de schouders te schudden en aan te spreken. </p><p>Vraag bijvoorbeeld: "Gaat alles goed met u?", "Wat is er gebeurd?" Als er geen reactie volgt op het aanspreken en aanraken, dan is het slachtoffer bewusteloos. </p><p>
+				<p id="step1">Controleer het bewustzijn door het slachtoffer voorzichtig aan de schouders te schudden en aan te spreken. Vraag bijvoorbeeld: "Gaat alles goed met u?", "Wat is er gebeurd?" Als er geen reactie volgt op het aanspreken en aanraken, dan is het slachtoffer bewusteloos. 
 
 				Roep om hulp. Laat het slachtoffer niet alleen.</P>
+				<button onclick="play('step1')" >Luister</button>
 			</li>
 			<li data-icon="star">
 				<img src="img/stap_2.jpg" class="ui-li-thumb" />
 				<h1>Stap 2</h1>
-				<p>Leg het slachtoffer op zijn rug en maak de luchtweg vrij door het hoofd iets naar achteren te kantelen of de kin met de vingertoppen iets omhoog te tillen.</p><p> Houd de luchtweg open. Kijk, luister en voel maximaal 10 seconden naar normale ademhaling.</P>
+				<p id="step2">Leg het slachtoffer op zijn rug en maak de luchtweg vrij door het hoofd iets naar achteren te kantelen of de kin met de vingertoppen iets omhoog te tillen. Houd de luchtweg open. Kijk, luister en voel maximaal 10 seconden naar normale ademhaling.</P>
+				<button onclick="play('step2')" >Luister</button>
 			</li>
 			<li data-icon="star">
 				<img src="img/stap_3.gif" class="ui-li-thumb" />
 				<h1>Stap 3</h1>
-				<p>Als het slachtoffer niet normaal ademt of als u twijfelt, vraag een omstander om 112 te bellen. Zeg dat het om een reanimatie gaat.</P>
+				<p id="step3">Als het slachtoffer niet normaal ademt of als u twijfelt, vraag een omstander om 112 te bellen. Zeg dat het om een reanimatie gaat.</P>
+				<button onclick="play('step3')" >Luister</button>
 			</li>
 			<li data-icon="star">
 				<img src="img/stap_4.jpg" class="ui-li-thumb" />
 				<h1>Stap 4</h1>
-				<p>Als het slachtoffer niet normaal ademt of als u twijfelt start met hartmassage.</P><p> Geef borstcompressie door het borstbeen 4 - 5 cm. in te drukken met een frequentie van 100 per minuut.</P></li>
+				<p id="step4">Als het slachtoffer niet normaal ademt of als u twijfelt start met hartmassage. Geef borstcompressie door het borstbeen 4 - 5 cm. in te drukken met een frequentie van 100 per minuut.</P>
+				<button onclick="play('step4')" >Luister</button>
+				</li>
 			<li data-icon="star">
 				<img src="img/stap_5.jpg" class="ui-li-thumb" />
 				<h1>Stap 5</h1>
-				<p>Na 30 borstcompressies start u met mond-op-mond beademing.</P><P> Als u de kinlift heeft toegepast en tijdens het beademen komt de borstkas omhoog, dan heeft u voldoende ingeblazen. Beadem 2 keer.</p>
-
-				<p>Wissel 30 borstcompressies af met 2 keer beademen tot professionele hulp arriveert.</P>
+				<p id="step5">Na 30 borstcompressies start u met mond-op-mond beademing. Als u de kinlift heeft toegepast en tijdens het beademen komt de borstkas omhoog, dan heeft u voldoende ingeblazen. Beadem 2 keer. Wissel 30 borstcompressies af met 2 keer beademen tot professionele hulp arriveert.</P>
+				<button onclick="play('step5')" >Luister</button>
 			</li>
 		</ul>
 		<a data-role="button" >Meer info</a>
